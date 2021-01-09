@@ -13,9 +13,6 @@ class ProstagesController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('prostages/index.html.twig', [
-            'controller_name' => 'ProstagesController',
-            'controller_test' => 'test'
-        ]);
+        return $this->render('prostages/index.html.twig');
     }
 }
