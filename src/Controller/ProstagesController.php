@@ -21,6 +21,7 @@ class ProstagesController extends AbstractController
      */
     public function afficherStage(): Response
     {
-        return $this->render('prostages/affichageStage.html.twig');
+        return $this->render('prostages/affichageStage.html.twig',
+      ['idStage' => 250]);
     }
 }
