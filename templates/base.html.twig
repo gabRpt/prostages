@@ -8,13 +8,14 @@
         <!-- Intégration de la partie CSS de Bootstrap -->
         {% block stylesheets %}
           <link rel="stylesheet" href="{{asset('/css/bootstrap.min.css')}}">
+          <link rel="stylesheet" href="{{asset('/css/fontello.css')}}">
         {% endblock %}
 
     </head>
     <body>
         <!-- BLOC MENU -->
         {% block menu %}
-          <h1>---MENU---</h1>
+          <h1><i class="icon-home"></i>---MENU---</h1>
         {% endblock %}
 
         <!-- BLOC CONTENU -->
