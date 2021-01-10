@@ -1,4 +1,25 @@
 {% extends 'base.html.twig' %}
-{% block contenu %}
-<h1>Cette page affichera la liste des formations de l'IUT</h1>
+{% block titrePage %}Formations proposées par l'IUT{% endblock %}
+{% block contenuPage %}
+<a href="{{path('prostages_accueil')}}">
+  <div class="card text-center" style="width: 20rem">
+    <div class="card-body">
+      <h5 class="card-title align-middle">DUT Informatique</h5>
+    </div>
+  </div>
+</a>
+<a href="{{path('prostages_accueil')}}">
+  <div class="card text-center" style="width: 20rem">
+    <div class="card-body">
+      <h5 class="card-title align-middle">DU TIC</h5>
+    </div>
+  </div>
+</a>
+<a href="{{path('prostages_accueil')}}">
+  <div class="card text-center" style="width: 20rem">
+    <div class="card-body">
+      <h5 class="card-title align-middle">LP Multimédia</h5>
+    </div>
+  </div>
+</a>
 {% endblock %}

@@ -1,4 +1,25 @@
 {% extends 'base.html.twig' %}
-{% block contenu %}
-<h1>Cette page affichera la liste des entreprises proposant un stage</h1>
+{% block titrePage %}Liste des entreprises proposant un stage{% endblock %}
+{% block contenuPage %}
+<a href="{{path('prostages_accueil')}}">
+  <div class="card text-center" style="width: 20rem">
+    <div class="card-body">
+      <h5 class="card-title align-middle">Horoquartz</h5>
+    </div>
+  </div>
+</a>
+<a href="{{path('prostages_accueil')}}">
+  <div class="card text-center" style="width: 20rem">
+    <div class="card-body">
+      <h5 class="card-title align-middle">Google</h5>
+    </div>
+  </div>
+</a>
+<a href="{{path('prostages_accueil')}}">
+  <div class="card text-center" style="width: 20rem">
+    <div class="card-body">
+      <h5 class="card-title align-middle">AirFrance</h5>
+    </div>
+  </div>
+</a>
 {% endblock %}
