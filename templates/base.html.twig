@@ -2,17 +2,33 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Permet le web responsive -->
         <title>{% block title %}Prostages{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+
+        <!-- Intégration de la partie CSS de Bootstrap -->
+        {% block stylesheets %}
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        {% endblock %}
+
     </head>
     <body>
+        <!-- BLOC MENU -->
         {% block menu %}
           <h1>---MENU---</h1>
         {% endblock %}
-        {% block contenu %}{% endblock %}
+
+        <!-- BLOC CONTENU -->
+        {% block contenu %}
+        {% endblock %}
+
+        <!-- BLOC FOOTER -->
         {% block footer %}
           <h1>---FOOTER---</h1>
         {% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        <!-- Intégration de la partie JavaScript de Bootstrap -->
+        {% block javascripts %}
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        {% endblock %}
     </body>
 </html>
