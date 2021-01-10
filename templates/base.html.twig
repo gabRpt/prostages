@@ -45,6 +45,13 @@
         {% block contenu %}
         <div class="row">
       		<div class="col-md-12">
+            <div class="card">
+              <h5 class="card-header"></h5>
+              <div class="card-body">
+                <h5 class="card-title">{% block titrePage %}{% endblock %}</h5>
+                <p class="card-text">{% block contenuPage %}{% endblock %}</p>
+              </div>
+            </div>
       		</div>
       	</div>
         {% endblock %}

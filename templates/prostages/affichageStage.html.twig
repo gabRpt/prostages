@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
-{% block contenu %}
-<h1>Stage {{idStage}}</h1>
-<p>
-  Cette page affichera le descriptif du stage ayant pour identifiant {{idStage}}.
-</p>
+{% block titrePage %}Stage n°{{idStage}} : nomDuStage{% endblock %}
+{% block contenuPage %}
+<ul class="list-group">
+  <li class="list-group-item"><b>Détails de l'entreprise: </b> détails de l'entreprise</li>
+  <li class="list-group-item"><b>Description: </b> description du stage</li>
+  <li class="list-group-item"><b>Formations: </b> formations concernées</li>
+  <li class="list-group-item"><b>Mail: </b> mail de contact</li>
+</ul>
 {% endblock %}

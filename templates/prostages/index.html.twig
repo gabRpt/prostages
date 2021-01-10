@@ -1,20 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block contenu %}
-<h1>Bienvenue sur la page d'accueil de Prostages</h1>
-
-<p>
-  Vous trouverez ci-dessous les stages proposés par Prostages.
-</p>
-<ul>
-   <li>
-     <a href="{{path('prostages_stage',{id:5})}}">Développeur Java - Horoquartz - DUT INFO</a>
-   </li>
-   <li>
-     <a href="{{path('prostages_stage',{id:123})}}">Secrétaire - Google - DUT TIC</a>
-   </li>
-   <li>
-     <a href="{{path('prostages_stage',{id:654})}}">Monteur - Netflix - LP Multimédia</a>
-   </li>
-</ul>
+{% block titrePage %}Bienvenue sur la page d'accueil de Prostages{% endblock %}
+{% block contenuPage %}
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Développeur Java</h5>
+        <p class="card-text">
+          Entreprise: Horoquartz<br>
+          Formations: DUT Informatique
+        </p>
+        <a href="{{path('prostages_stage',{id:5})}}" class="btn btn-primary">Afficher</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Secrétaire</h5>
+        <p class="card-text">
+          Entreprise: Google<br>
+          Formations: DUT TIC
+        </p>
+        <a href="{{path('prostages_stage',{id:32})}}" class="btn btn-primary">Afficher</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Monteur</h5>
+        <p class="card-text">
+          Entreprise: 21st Century<br>
+          Formations: LP Média
+        </p>
+        <a href="{{path('prostages_stage',{id:145})}}" class="btn btn-primary">Afficher</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Développeur C</h5>
+        <p class="card-text">
+          Entreprise: AirFrance<br>
+          Formations: DUT Informatique
+        </p>
+        <a href="{{path('prostages_stage',{id:851})}}" class="btn btn-primary">Afficher</a>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
