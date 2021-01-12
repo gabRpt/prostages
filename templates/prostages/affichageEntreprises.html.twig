@@ -1,25 +1,36 @@
 {% extends 'base.html.twig' %}
 {% block titrePage %}Liste des entreprises proposant un stage{% endblock %}
 {% block contenuPage %}
-<a href="{{path('prostages_accueil')}}">
-  <div class="card text-center" style="width: 20rem">
-    <div class="card-body">
-      <h5 class="card-title align-middle">Horoquartz</h5>
+
+{% set etatLigne = 0 %}
+<div class="row">
+{% for entrepriseCourante in entreprises %}
+
+  {# Si on a 4 cartes sur la ligne, on saute d'une ligne #}
+  {% if etatLigne >= 4 %}
+    </div>
+    <div class="row mt-4">
+      {% set etatLigne = 0 %}
+  {% endif %}
+
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{entrepriseCourante.nom}}</h5>
+        <p class="card-text">
+          <ul>
+            <li>Activite : {{entrepriseCourante.activite}}</li>
+            <li>Adresse : {{entrepriseCourante.adresse}}</li>
+            <li>Site : {{entrepriseCourante.site}}</li>
+          </ul>
+        </p>
+        <a href="{{path('prostages_accueil')}}" class="btn btn-primary">Afficher</a>
+      </div>
     </div>
   </div>
-</a>
-<a href="{{path('prostages_accueil')}}">
-  <div class="card text-center" style="width: 20rem">
-    <div class="card-body">
-      <h5 class="card-title align-middle">Google</h5>
-    </div>
-  </div>
-</a>
-<a href="{{path('prostages_accueil')}}">
-  <div class="card text-center" style="width: 20rem">
-    <div class="card-body">
-      <h5 class="card-title align-middle">AirFrance</h5>
-    </div>
-  </div>
-</a>
+
+  {% set etatLigne = etatLigne + 1 %}
+
+{% endfor %}
+</div>
 {% endblock %}

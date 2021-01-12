@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Stage;
+use App\Entity\Entreprise;
+use App\Repository\EntrepriseRepository;
 use App\Repository\StageRepository;
 
 class ProstagesController extends AbstractController
@@ -29,10 +31,14 @@ class ProstagesController extends AbstractController
     /**
      * @Route("/entreprises", name="prostages_entreprises")
      */
-    public function afficherEntreprises(): Response
+    public function afficherEntreprises(EntrepriseRepository $repoEntreprises): Response
     {
+        //$repoEntreprises = $this->getDoctrine()->getRepository(Entreprise::class);
+
+        $entreprises = $repoEntreprises->findAll();
+
         //return new Response('<html><h1>Cette page affichera la liste des entreprises proposant un stage</h1></html>');
-        return $this->render('prostages/affichageEntreprises.html.twig');
+        return $this->render('prostages/affichageEntreprises.html.twig',['entreprises'=>$entreprises]);
     }
 
     /**
