@@ -1,10 +1,25 @@
 {% extends 'base.html.twig' %}
-{% block titrePage %}Stage n°{{idStage}} : nomDuStage{% endblock %}
+{% block titrePage %}Stage n°{{stage.id}} : {{stage.intitule}}{% endblock %}
 {% block contenuPage %}
 <ul class="list-group">
-  <li class="list-group-item"><b>Détails de l'entreprise: </b> détails de l'entreprise</li>
-  <li class="list-group-item"><b>Description: </b> description du stage</li>
-  <li class="list-group-item"><b>Formations: </b> formations concernées</li>
-  <li class="list-group-item"><b>Mail: </b> mail de contact</li>
+  <li class="list-group-item"><b>Détails de l'entreprise : </b>
+    <ul>
+      <li>Nom : {{stage.entreprise.nom}}</li>
+      <li>Activite : {{stage.entreprise.activite}}</li>
+      <li>Adresse : {{stage.entreprise.adresse}}</li>
+      <li>Site : {{stage.entreprise.site}}</li>
+    </ul>
+
+  </li>
+  <li class="list-group-item"><b>Description : </b> {{stage.mission}}</li>
+  <li class="list-group-item"><b>Formations : </b>
+    {% for formation in stage.getFormations %}
+      {{formation.nom}}
+      {% if loop.last == false %}
+        ,
+      {% endif %}
+    {% endfor %}
+  </li>
+  <li class="list-group-item"><b>Mail : </b> {{stage.mail}}</li>
 </ul>
 {% endblock %}
