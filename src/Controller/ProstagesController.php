@@ -6,16 +6,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Stage;
+use App\Repository\StageRepository;
 
 class ProstagesController extends AbstractController
 {
     /**
      * @Route("/", name="prostages_accueil")
      */
-    public function index(): Response
+    public function index(StageRepository $repoStage): Response
     {
+      /*
         //Récupération du repo entite stage
-        $repoStage = $this->getDoctrine()->getRepository(Stage::class);
+        $repoStage = $this->getDoctrine()->getRepository(Stage::class);*/
 
         //Récupération des stages enregistrés
         $stages = $repoStage->findAll();
@@ -45,11 +47,8 @@ class ProstagesController extends AbstractController
     /**
      * @Route("/stages/{id}", name="prostages_stage")
      */
-    public function afficherStage($id): Response
+    public function afficherStage(Stage $stage): Response
     {
-        $repoStage = $this->getDoctrine()->getRepository(Stage::class);
-        $stage = $repoStage->find($id);
-
         return $this->render('prostages/affichageStage.html.twig',
       ['stage' => $stage]);
     }
