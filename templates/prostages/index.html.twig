@@ -2,54 +2,41 @@
 
 {% block titrePage %}Bienvenue sur la page d'accueil de Prostages{% endblock %}
 {% block contenuPage %}
+
+{% set etatLigne = 0 %}
 <div class="row">
+{% for stageCourant in stages %}
+
+  {# Si on a 4 cartes sur la ligne, on saute d'une ligne #}
+  {% if etatLigne >= 4 %}
+    </div>
+    <div class="row mt-4">
+      {% set etatLigne = 0 %}
+  {% endif %}
+
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Développeur Java</h5>
+        <h5 class="card-title">{{stageCourant.intitule}}</h5>
         <p class="card-text">
-          Entreprise: Horoquartz<br>
-          Formations: DUT Informatique
+          Entreprise: {{stageCourant.entreprise.nom}}<br>
+          Formations:
+          {# On affiche toutes les formations #}
+          {% for formation in stageCourant.getFormations %}
+            {{formation.nom}}
+            {% if loop.last == false %}
+              ,
+            {% endif %}
+          {% endfor %}
+
         </p>
-        <a href="{{path('prostages_stage',{id:5})}}" class="btn btn-primary">Afficher</a>
+        <a href="{{path('prostages_stage',{id:stageCourant.id})}}" class="btn btn-primary">Afficher</a>
       </div>
     </div>
   </div>
-  <div class="col-sm-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Secrétaire</h5>
-        <p class="card-text">
-          Entreprise: Google<br>
-          Formations: DUT TIC
-        </p>
-        <a href="{{path('prostages_stage',{id:32})}}" class="btn btn-primary">Afficher</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Monteur</h5>
-        <p class="card-text">
-          Entreprise: 21st Century<br>
-          Formations: LP Média
-        </p>
-        <a href="{{path('prostages_stage',{id:145})}}" class="btn btn-primary">Afficher</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Développeur C</h5>
-        <p class="card-text">
-          Entreprise: AirFrance<br>
-          Formations: DUT Informatique
-        </p>
-        <a href="{{path('prostages_stage',{id:851})}}" class="btn btn-primary">Afficher</a>
-      </div>
-    </div>
-  </div>
+
+  {% set etatLigne = etatLigne + 1 %}
+
+{% endfor %}
 </div>
 {% endblock %}
