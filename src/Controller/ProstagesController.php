@@ -58,4 +58,15 @@ class ProstagesController extends AbstractController
         return $this->render('prostages/affichageStage.html.twig',
       ['stage' => $stage]);
     }
+
+    /**
+      *@Route("/entreprises/{id}",name="prostages_stagesEntreprise")
+      */
+    public function afficherStagesEntreprise(Entreprise $entreprise, StageRepository $repoStage): Response
+    {
+      $stages = $repoStage->findBy(['entreprise'=>$entreprise]);
+
+      return $this->render('prostages/affichageStagesEntreprise.html.twig',['entreprise'=>$entreprise,
+                                                                     'stages'=>$stages]);
+    }
 }
