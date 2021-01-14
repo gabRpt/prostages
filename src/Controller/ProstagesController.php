@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Stage;
 use App\Entity\Entreprise;
+use App\Entity\Formation;
 use App\Repository\EntrepriseRepository;
 use App\Repository\StageRepository;
 
@@ -37,17 +38,18 @@ class ProstagesController extends AbstractController
 
         $entreprises = $repoEntreprises->findAll();
 
-        //return new Response('<html><h1>Cette page affichera la liste des entreprises proposant un stage</h1></html>');
         return $this->render('prostages/affichageEntreprises.html.twig',['entreprises'=>$entreprises]);
     }
 
     /**
      * @Route("/formations", name="prostages_formations")
      */
-    public function afficherFormations(): Response
+    public function afficherFormations(FormationRepository $repoFormation): Response
     {
-        //return new Response('<html><h1>Cette page affichera la liste des formations de l\'IUT</h1></html>');
-        return $this->render('prostages/affichageFormations.html.twig');
+        //Récupération de toutes les formations
+        $formations = $repoFormation->findAll();
+
+        return $this->render('prostages/affichageFormations.html.twig',['formations'=>$formations]);
     }
 
     /**
@@ -64,9 +66,18 @@ class ProstagesController extends AbstractController
       */
     public function afficherStagesEntreprise(Entreprise $entreprise, StageRepository $repoStage): Response
     {
+      //
       $stages = $repoStage->findBy(['entreprise'=>$entreprise]);
 
       return $this->render('prostages/affichageStagesEntreprise.html.twig',['entreprise'=>$entreprise,
                                                                      'stages'=>$stages]);
+    }
+
+    /**
+      *@Route("/formations/{id}",name="prostages_stagesFormation")
+      */
+    public function afficherStagesFormation(Formation $formation): Response
+    {
+      return $this->render('prostages/affichageStagesFormation.html.twig',['formation'=>$formation]);
     }
 }

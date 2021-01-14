@@ -1,25 +1,32 @@
 {% extends 'base.html.twig' %}
 {% block titrePage %}Formations proposées par l'IUT{% endblock %}
 {% block contenuPage %}
-<a href="{{path('prostages_accueil')}}">
-  <div class="card text-center" style="width: 20rem">
-    <div class="card-body">
-      <h5 class="card-title align-middle">DUT Informatique</h5>
+
+{% set etatLigne = 0 %}
+<div class="row">
+{% for formationCourante in formations %}
+
+  {# Si on a 4 cartes sur la ligne, on saute d'une ligne #}
+  {% if etatLigne >= 4 %}
+    </div>
+    <div class="row mt-4">
+      {% set etatLigne = 0 %}
+  {% endif %}
+
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{formationCourante.nom}}</h5>
+        <p class="card-text">
+          <b>Description :</b> {{formationCourante.description}}</li>
+        </p>
+        <a href="{{path('prostages_stagesFormation',{id:formationCourante.id})}}" class="btn btn-primary">Afficher</a>
+      </div>
     </div>
   </div>
-</a>
-<a href="{{path('prostages_accueil')}}">
-  <div class="card text-center" style="width: 20rem">
-    <div class="card-body">
-      <h5 class="card-title align-middle">DU TIC</h5>
-    </div>
-  </div>
-</a>
-<a href="{{path('prostages_accueil')}}">
-  <div class="card text-center" style="width: 20rem">
-    <div class="card-body">
-      <h5 class="card-title align-middle">LP Multimédia</h5>
-    </div>
-  </div>
-</a>
+
+  {% set etatLigne = etatLigne + 1 %}
+
+{% endfor %}
+</div>
 {% endblock %}

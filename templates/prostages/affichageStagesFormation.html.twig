@@ -1,0 +1,3 @@
+{% extends 'afficherStagesLignes.html.twig' %}
+{% block titrePage %}Liste disponible pour la formation {{formation.nom}}{% endblock %}
+{% set stages = formation.stages %} {#Récupération de tous les stages qui concerne la formation#}
