@@ -5,28 +5,28 @@
 {% set etatLigne = 0 %}
 <div class="row">
 {% for formationCourante in formations %}
+  {% if formationCourante.stages is empty == false %}
+    {# Si on a 4 cartes sur la ligne, on saute d'une ligne #}
+    {% if etatLigne >= 4 %}
+      </div>
+      <div class="row mt-4">
+        {% set etatLigne = 0 %}
+    {% endif %}
 
-  {# Si on a 4 cartes sur la ligne, on saute d'une ligne #}
-  {% if etatLigne >= 4 %}
-    </div>
-    <div class="row mt-4">
-      {% set etatLigne = 0 %}
-  {% endif %}
-
-  <div class="col-sm-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{formationCourante.nom}}</h5>
-        <p class="card-text">
-          <b>Description :</b> {{formationCourante.description}}</li>
-        </p>
-        <a href="{{path('prostages_stagesFormation',{id:formationCourante.id})}}" class="btn btn-primary">Afficher</a>
+    <div class="col-sm-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{formationCourante.nom}}</h5>
+          <p class="card-text">
+            <b>Description :</b> {{formationCourante.description}}</li>
+          </p>
+          <a href="{{path('prostages_stagesFormation',{id:formationCourante.id})}}" class="btn btn-primary">Afficher</a>
+        </div>
       </div>
     </div>
-  </div>
 
-  {% set etatLigne = etatLigne + 1 %}
-
+    {% set etatLigne = etatLigne + 1 %}
+  {% endif %}
 {% endfor %}
 </div>
 {% endblock %}

@@ -10,6 +10,7 @@ use App\Entity\Entreprise;
 use App\Entity\Formation;
 use App\Repository\EntrepriseRepository;
 use App\Repository\StageRepository;
+use App\Repository\FormationRepository;
 
 class ProstagesController extends AbstractController
 {
