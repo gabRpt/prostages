@@ -19,11 +19,8 @@ class ProstagesController extends AbstractController
      */
     public function index(StageRepository $repoStage): Response
     {
-      /*
-        //Récupération du repo entite stage
-        $repoStage = $this->getDoctrine()->getRepository(Stage::class);*/
-
-        //Récupération des stages enregistrés
+        //Récupération des stages enregistrés, reposStage est directement récupéré
+        //Grâce à l'injection de dépendances
         $stages = $repoStage->findAll();
 
         //Envoyer les stages à la vue chargée de les afficher
@@ -35,8 +32,8 @@ class ProstagesController extends AbstractController
      */
     public function afficherEntreprises(EntrepriseRepository $repoEntreprises): Response
     {
-        //$repoEntreprises = $this->getDoctrine()->getRepository(Entreprise::class);
-
+        //Récupération des entreprises, $repoEntreprises est directement récupéré
+        //Grâce à l'injection de dépendances
         $entreprises = $repoEntreprises->findAll();
 
         return $this->render('prostages/affichageEntreprises.html.twig',['entreprises'=>$entreprises]);
@@ -47,7 +44,8 @@ class ProstagesController extends AbstractController
      */
     public function afficherFormations(FormationRepository $repoFormation): Response
     {
-        //Récupération de toutes les formations
+        //Récupération des formations, $repoFormation est directement récupéré
+        //Grâce à l'injection de dépendances
         $formations = $repoFormation->findAll();
 
         return $this->render('prostages/affichageFormations.html.twig',['formations'=>$formations]);
@@ -58,6 +56,8 @@ class ProstagesController extends AbstractController
      */
     public function afficherStage(Stage $stage): Response
     {
+        //Grâce à l'injection de dépendances, le stage cible est
+        //directement récupéré avec l'id fourni en paramètre du lien
         return $this->render('prostages/affichageStage.html.twig',
       ['stage' => $stage]);
     }
@@ -67,7 +67,9 @@ class ProstagesController extends AbstractController
       */
     public function afficherStagesEntreprise(Entreprise $entreprise, StageRepository $repoStage): Response
     {
-      //
+      //Récupération des stages, $repoStage est directement récupéré
+      //Grâce à l'injection de dépendances, ainsi que l'entreprise dont
+      //l'id est fourni en paramètre de lien
       $stages = $repoStage->findBy(['entreprise'=>$entreprise]);
 
       return $this->render('prostages/affichageStagesEntreprise.html.twig',['entreprise'=>$entreprise,
@@ -79,6 +81,8 @@ class ProstagesController extends AbstractController
       */
     public function afficherStagesFormation(Formation $formation): Response
     {
+      //Grâce à l'injection de dépendances, nous avons récupéré la formation dont
+      //l'id est fourni en paramètre de lien
       return $this->render('prostages/affichageStagesFormation.html.twig',['formation'=>$formation]);
     }
 }

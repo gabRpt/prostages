@@ -1,25 +1,29 @@
 {% extends 'base.html.twig' %}
+{# On affiche l'identifiant du stage ainsi que son intitulé #}
 {% block titrePage %}Stage n°{{stage.id}} : {{stage.intitule}}{% endblock %}
 {% block contenuPage %}
+{# Création d'une liste avec du css de Bootstrap contenant toutes les informations du stage #}
 <ul class="list-group">
   <li class="list-group-item"><b>Détails de l'entreprise : </b>
     <ul>
-      <li>Nom : {{stage.entreprise.nom}}</li>
-      <li>Activite : {{stage.entreprise.activite}}</li>
-      <li>Adresse : {{stage.entreprise.adresse}}</li>
-      <li>Site : {{stage.entreprise.site}}</li>
+      <li>Nom : {{stage.entreprise.nom}}</li> {# affichage du nom de l'entreprise du stage concerné #}
+      <li>Activite : {{stage.entreprise.activite}}</li> {# affichage de l'activité de l'entreprise du stage concerné #}
+      <li>Adresse : {{stage.entreprise.adresse}}</li> {# affichage de l'adresse l'entreprise du stage concerné #}
+      <li>Site : <a href={{stage.entreprise.site}}>{{stage.entreprise.site}}</a></li>
     </ul>
 
   </li>
-  <li class="list-group-item"><b>Description : </b> {{stage.mission}}</li>
+  <li class="list-group-item"><b>Description : </b> {{stage.mission}}</li> {# affichage de la mission de l'entreprise du stage concerné #}
   <li class="list-group-item"><b>Formations : </b>
+    {# on affiche toutes les formations qui concerne ce stage #}
     {% for formation in stage.getFormations %}
-      {{formation.nom}}
+      {{formation.nom}} {# affichage du nom de la formation #}
+      {# tant que nous ne somme pas arrivé à la fin de la collection de formation, nous affichon une virgule #}
       {% if loop.last == false %}
         ,
       {% endif %}
     {% endfor %}
   </li>
-  <li class="list-group-item"><b>Mail : </b> {{stage.mail}}</li>
+  <li class="list-group-item"><b>Mail : </b> {{stage.mail}}</li> {# affichage du mail de contact de l'entreprise du stage concerné #}
 </ul>
 {% endblock %}

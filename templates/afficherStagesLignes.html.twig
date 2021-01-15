@@ -2,16 +2,19 @@
 {% block contenuPage %}
 
 {% set etatLigne = 0 %}
+{# on créer une ligne #}
 <div class="row">
+{# On parcours toutes les stages que nous avons reçu du contrôleur #}
 {% for stageCourant in stages %}
 
   {# Si on a 4 cartes sur la ligne, on saute d'une ligne #}
   {% if etatLigne >= 4 %}
-    </div>
-    <div class="row mt-4">
-      {% set etatLigne = 0 %}
+    </div> {# On ferme la ligne précedente #}
+    <div class="row mt-4"> {# création d'une nouvelle ligne #}
+      {% set etatLigne = 0 %} {# raz du compteur #}
   {% endif %}
 
+  {# On créer une carte prenant 3 de place en colonne #}
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body">
@@ -19,21 +22,23 @@
         <p class="card-text">
           Entreprise: {{stageCourant.entreprise.nom}}<br>
           Formations:
-          {# On affiche toutes les formations #}
+          {# on affiche toutes les formations qui concerne ce stage #}
           {% for formation in stageCourant.getFormations %}
-            {{formation.nom}}
+            {{formation.nom}} {# affichage du nom de la formation #}
+            {# tant que nous ne somme pas arrivé à la fin de la collection de formation, nous affichon une virgule #}
             {% if loop.last == false %}
               ,
             {% endif %}
           {% endfor %}
 
         </p>
+        {# On génère un lien vers la page de détails du stage courant #}
         <a href="{{path('prostages_stage',{id:stageCourant.id})}}" class="btn btn-primary">Afficher</a>
       </div>
     </div>
   </div>
 
-  {% set etatLigne = etatLigne + 1 %}
+  {% set etatLigne = etatLigne + 1 %} {# incrémentation du compteur #}
 
 {% endfor %}
 </div>
