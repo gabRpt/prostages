@@ -19,6 +19,17 @@ class StageRepository extends ServiceEntityRepository
         parent::__construct($registry, Stage::class);
     }
 
+    //Retourne les stages proposés par l'entreprise dont le nom est fournis en paramètre
+    public function findByEntreprise($nomEntreprise)
+    {
+      return $this->createQueryBuilder('stages')
+                 ->join('stages.entreprise','entreprise')
+                 ->where('entreprise.nom = :nomEntreprise')
+                 ->setParameter('nomEntreprise',$nomEntreprise)
+                 ->getQuery()
+                 ->getResult();
+    }
+
     // /**
     //  * @return Stage[] Returns an array of Stage objects
     //  */

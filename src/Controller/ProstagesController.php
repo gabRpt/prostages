@@ -70,7 +70,8 @@ class ProstagesController extends AbstractController
       //Récupération des stages, $repoStage est directement récupéré
       //Grâce à l'injection de dépendances, ainsi que l'entreprise dont
       //l'id est fourni en paramètre de lien
-      $stages = $repoStage->findBy(['entreprise'=>$entreprise]);
+      //$stages = $repoStage->findBy(['entreprise'=>$entreprise]);
+      $stages = $repoStage->findByEntreprise($entreprise->getNom());
 
       return $this->render('prostages/affichageStagesEntreprise.html.twig',['entreprise'=>$entreprise,
                                                                      'stages'=>$stages]);
