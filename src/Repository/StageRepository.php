@@ -30,6 +30,19 @@ class StageRepository extends ServiceEntityRepository
                  ->getResult();
     }
 
+    //Retourne les stages proposés dans la formation dont le nom est fournis en paramètre
+    public function findByFormation($nomFormation)
+    {
+      return $this->getEntityManager()
+                  ->createQuery(
+                    'SELECT stages
+                    FROM App\Entity\Stage stages
+                    JOIN stages.formations formations
+                    WHERE formations.nom = :nomFormation')
+                  ->setParameter('nomFormation',$nomFormation)
+                  ->execute();
+    }
+
     // /**
     //  * @return Stage[] Returns an array of Stage objects
     //  */

@@ -23,7 +23,7 @@
           Entreprise: {{stageCourant.entreprise.nom}}<br>
           Formations:
           {# on affiche toutes les formations qui concerne ce stage #}
-          {% for formation in stageCourant.getFormations %}
+          {% for formation in stageCourant.formations %}
             {{formation.nom}} {# affichage du nom de la formation #}
             {# tant que nous ne somme pas arrivé à la fin de la collection de formation, nous affichon une virgule #}
             {% if loop.last == false %}

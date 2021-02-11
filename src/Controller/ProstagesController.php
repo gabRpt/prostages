@@ -74,16 +74,19 @@ class ProstagesController extends AbstractController
       $stages = $repoStage->findByEntreprise($entreprise->getNom());
 
       return $this->render('prostages/affichageStagesEntreprise.html.twig',['entreprise'=>$entreprise,
-                                                                     'stages'=>$stages]);
+                                                                            'stages'=>$stages]);
     }
 
     /**
       *@Route("/formations/{id}",name="prostages_stagesFormation")
       */
-    public function afficherStagesFormation(Formation $formation): Response
+    public function afficherStagesFormation(Formation $formation, StageRepository $repoStage): Response
     {
       //Grâce à l'injection de dépendances, nous avons récupéré la formation dont
       //l'id est fourni en paramètre de lien
-      return $this->render('prostages/affichageStagesFormation.html.twig',['formation'=>$formation]);
+      $stages = $repoStage->findByFormation($formation->getNom());
+
+      return $this->render('prostages/affichageStagesFormation.html.twig',['formation'=>$formation,
+                                                                           'stages'=>$stages]);
     }
 }
