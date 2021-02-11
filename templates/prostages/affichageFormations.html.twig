@@ -25,7 +25,7 @@
             <b>Description :</b> {{formationCourante.description}}</li>
           </p>
           {# On génère un lien vers la liste des stages proposés par la formation courante #}
-          <a href="{{path('prostages_stagesFormation',{id:formationCourante.id})}}" class="btn btn-primary">Afficher</a>
+          <a href="{{path('prostages_stagesFormation',{nomFormation:formationCourante.nom})}}" class="btn btn-primary">Afficher</a>
         </div>
       </div>
     </div>

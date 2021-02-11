@@ -63,30 +63,31 @@ class ProstagesController extends AbstractController
     }
 
     /**
-      *@Route("/entreprises/{id}",name="prostages_stagesEntreprise")
+      *@Route("/entreprises/nomEntreprise{nomEntreprise}",name="prostages_stagesEntreprise")
       */
-    public function afficherStagesEntreprise(Entreprise $entreprise, StageRepository $repoStage): Response
+    public function afficherStagesEntreprise($nomEntreprise, StageRepository $repoStage): Response
     {
       //Récupération des stages, $repoStage est directement récupéré
       //Grâce à l'injection de dépendances, ainsi que l'entreprise dont
       //l'id est fourni en paramètre de lien
       //$stages = $repoStage->findBy(['entreprise'=>$entreprise]);
-      $stages = $repoStage->findByEntreprise($entreprise->getNom());
+      $stages = $repoStage->fetchByEntreprise($nomEntreprise);
 
-      return $this->render('prostages/affichageStagesEntreprise.html.twig',['entreprise'=>$entreprise,
-                                                                            'stages'=>$stages]);
+      return $this->render('prostages/affichageStagesEntreprise.html.twig',['stages'=>$stages,
+                                                                            'nomEntreprise'=>$nomEntreprise]);
     }
 
     /**
-      *@Route("/formations/{id}",name="prostages_stagesFormation")
+      *@Route("/formations/nomFormation{nomFormation}",name="prostages_stagesFormation")
       */
-    public function afficherStagesFormation(Formation $formation, StageRepository $repoStage): Response
+    public function afficherStagesFormation($nomFormation, StageRepository $repoStage): Response
     {
       //Grâce à l'injection de dépendances, nous avons récupéré la formation dont
       //l'id est fourni en paramètre de lien
-      $stages = $repoStage->findByFormation($formation->getNom());
+      $stages = $repoStage->fetchByFormation($nomFormation);
 
-      return $this->render('prostages/affichageStagesFormation.html.twig',['formation'=>$formation,
-                                                                           'stages'=>$stages]);
+
+      return $this->render('prostages/affichageStagesFormation.html.twig',['stages'=>$stages,
+                                                                           'nomFormation'=>$nomFormation]);
     }
 }

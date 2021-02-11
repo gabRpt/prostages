@@ -29,7 +29,7 @@
             </ul>
           </p>
           {# On génère un lien vers la liste des stages proposés par l'entreprise courante #}
-          <a href="{{path('prostages_stagesEntreprise',{id:entrepriseCourante.id})}}" class="btn btn-primary">Afficher</a>
+          <a href="{{path('prostages_stagesEntreprise',{nomEntreprise:entrepriseCourante.nom})}}" class="btn btn-primary">Afficher</a>
         </div>
       </div>
     </div>

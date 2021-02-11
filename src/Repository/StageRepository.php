@@ -20,10 +20,12 @@ class StageRepository extends ServiceEntityRepository
     }
 
     //Retourne les stages proposés par l'entreprise dont le nom est fournis en paramètre
-    public function findByEntreprise($nomEntreprise)
+    public function fetchByEntreprise($nomEntreprise)
     {
       return $this->createQueryBuilder('stages')
+                 ->select('stages','entreprise','formations')
                  ->join('stages.entreprise','entreprise')
+                 ->join('stages.formations','formations')
                  ->where('entreprise.nom = :nomEntreprise')
                  ->setParameter('nomEntreprise',$nomEntreprise)
                  ->getQuery()
@@ -31,13 +33,14 @@ class StageRepository extends ServiceEntityRepository
     }
 
     //Retourne les stages proposés dans la formation dont le nom est fournis en paramètre
-    public function findByFormation($nomFormation)
+    public function fetchByFormation($nomFormation)
     {
       return $this->getEntityManager()
                   ->createQuery(
-                    'SELECT stages
+                    'SELECT stages,entreprise,formations
                     FROM App\Entity\Stage stages
                     JOIN stages.formations formations
+                    JOIN stages.entreprise entreprise
                     WHERE formations.nom = :nomFormation')
                   ->setParameter('nomFormation',$nomFormation)
                   ->execute();
