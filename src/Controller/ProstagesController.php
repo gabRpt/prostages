@@ -21,7 +21,7 @@ class ProstagesController extends AbstractController
     {
         //Récupération des stages enregistrés, reposStage est directement récupéré
         //Grâce à l'injection de dépendances
-        $stages = $repoStage->findAll();
+        $stages = $repoStage->fetchAllStageFormationEntreprise();
 
         //Envoyer les stages à la vue chargée de les afficher
         return $this->render('prostages/index.html.twig',['stages'=>$stages]);
@@ -34,7 +34,7 @@ class ProstagesController extends AbstractController
     {
         //Récupération des entreprises, $repoEntreprises est directement récupéré
         //Grâce à l'injection de dépendances
-        $entreprises = $repoEntreprises->findAll();
+        $entreprises = $repoEntreprises->fetchHaveStage();
 
         return $this->render('prostages/affichageEntreprises.html.twig',['entreprises'=>$entreprises]);
     }
@@ -46,7 +46,7 @@ class ProstagesController extends AbstractController
     {
         //Récupération des formations, $repoFormation est directement récupéré
         //Grâce à l'injection de dépendances
-        $formations = $repoFormation->findAll();
+        $formations = $repoFormation->fetchHaveStage();
 
         return $this->render('prostages/affichageFormations.html.twig',['formations'=>$formations]);
     }
@@ -56,14 +56,11 @@ class ProstagesController extends AbstractController
      */
     public function afficherStage(Stage $stage): Response
     {
-        //Grâce à l'injection de dépendances, le stage cible est
-        //directement récupéré avec l'id fourni en paramètre du lien
-        return $this->render('prostages/affichageStage.html.twig',
-      ['stage' => $stage]);
+        return $this->render('prostages/affichageStage.html.twig',['stage' => $stage]);
     }
 
     /**
-      *@Route("/entreprises/nomEntreprise{nomEntreprise}",name="prostages_stagesEntreprise")
+      *@Route("/entreprises/{nomEntreprise}",name="prostages_stagesEntreprise")
       */
     public function afficherStagesEntreprise($nomEntreprise, StageRepository $repoStage): Response
     {
@@ -78,7 +75,7 @@ class ProstagesController extends AbstractController
     }
 
     /**
-      *@Route("/formations/nomFormation{nomFormation}",name="prostages_stagesFormation")
+      *@Route("/formations/{nomFormation}",name="prostages_stagesFormation")
       */
     public function afficherStagesFormation($nomFormation, StageRepository $repoStage): Response
     {

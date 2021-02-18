@@ -19,6 +19,15 @@ class FormationRepository extends ServiceEntityRepository
         parent::__construct($registry, Formation::class);
     }
 
+    public function fetchHaveStage()
+    {
+      return $this->createQueryBuilder('formation')
+                  ->join('formation.stages','stages')
+                  ->where('stages IS NOT NULL')
+                  ->getQuery()
+                  ->getResult();
+    }
+
     // /**
     //  * @return Formation[] Returns an array of Formation objects
     //  */
