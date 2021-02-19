@@ -13,6 +13,7 @@ use App\Repository\EntrepriseRepository;
 use App\Repository\StageRepository;
 use App\Repository\FormationRepository;
 use Doctrine\Persistence\ObjectManager;
+use App\Form\EntrepriseType;
 
 class ProstagesController extends AbstractController
 {
@@ -49,12 +50,7 @@ class ProstagesController extends AbstractController
        $entreprise = new Entreprise();
 
        //Création du formulaire d'ajout d'une entreprise
-       $form = $this->createFormBuilder($entreprise)
-                    ->add('nom')
-                    ->add('activite')
-                    ->add('adresse')
-                    ->add('site')
-                    ->getForm();
+       $form = $this->createForm(EntrepriseType::class, $entreprise);
 
        $form->handleRequest($request);
 
@@ -80,13 +76,8 @@ class ProstagesController extends AbstractController
       */
       public function modifierEntreprise(Entreprise $entreprise, Request $request, ObjectManager $manager, EntrepriseRepository $repoEntreprises)
       {
-        //Création du formulaire d'ajout d'une entreprise
-        $form = $this->createFormBuilder($entreprise)
-                     ->add('nom')
-                     ->add('activite')
-                     ->add('adresse')
-                     ->add('site')
-                     ->getForm();
+        //Création du formulaire de modification d'une entreprise
+        $form = $this->createForm(EntrepriseType::class, $entreprise);
 
         $form->handleRequest($request);
 
