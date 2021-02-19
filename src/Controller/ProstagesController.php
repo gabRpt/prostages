@@ -40,6 +40,23 @@ class ProstagesController extends AbstractController
     }
 
     /**
+     * @Route("/entreprises/ajouter", name="prostages_ajoutEntreprise")
+     */
+     public function ajouterEntreprise()
+     {
+       $entreprise = new Entreprise();
+
+       $form = $this->createFormBuilder($entreprise)
+                    ->add('nom')
+                    ->add('activite')
+                    ->add('adresse')
+                    ->add('site')
+                    ->getForm();
+
+       return $this->render('prostages/ajoutEntreprise.html.twig',['formulaireEntreprise'=>$form->createView()]);
+     }
+
+    /**
      * @Route("/formations", name="prostages_formations")
      */
     public function afficherFormations(FormationRepository $repoFormation): Response
