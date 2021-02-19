@@ -44,7 +44,7 @@ class ProstagesController extends AbstractController
     /**
      * @Route("/entreprises/ajouter", name="prostages_ajoutEntreprise")
      */
-     public function ajouterEntreprise(Request $request, ObjectManager $manager)
+     public function ajouterEntreprise(Request $request, ObjectManager $manager, EntrepriseRepository $repoEntreprises)
      {
        $entreprise = new Entreprise();
 
@@ -64,12 +64,48 @@ class ProstagesController extends AbstractController
          $manager->persist($entreprise);
          $manager->flush();
 
-         //Retour à la page d'accueil
-         return $this->redirectToRoute('prostages_accueil');
+         //Réinitialisation du formulaire en redigireant sur la même page
+         return $this->redirectToRoute('prostages_ajoutEntreprise');
        }
 
-       return $this->render('prostages/ajoutEntreprise.html.twig',['formulaireEntreprise'=>$form->createView()]);
+       $entreprises = $repoEntreprises->findAll();
+
+       return $this->render('prostages/ajoutModifEntreprise.html.twig',['formulaireEntreprise'=>$form->createView(),
+                                                                        'action'=>'ajouter',
+                                                                        'entreprises'=>$entreprises]);
      }
+
+     /**
+      * @Route("/entreprises/modifier/{id}", name="prostages_modifEntreprise")
+      */
+      public function modifierEntreprise(Entreprise $entreprise, Request $request, ObjectManager $manager, EntrepriseRepository $repoEntreprises)
+      {
+        //Création du formulaire d'ajout d'une entreprise
+        $form = $this->createFormBuilder($entreprise)
+                     ->add('nom')
+                     ->add('activite')
+                     ->add('adresse')
+                     ->add('site')
+                     ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted())
+        {
+          //Enregistrement en BD
+          $manager->persist($entreprise);
+          $manager->flush();
+
+          //Retour à la page d'ajout d'une entreprise
+          return $this->redirectToRoute('prostages_ajoutEntreprise');
+        }
+
+        $entreprises = $repoEntreprises->findAll();
+
+        return $this->render('prostages/ajoutModifEntreprise.html.twig',['formulaireEntreprise'=>$form->createView(),
+                                                                         'action'=>'modifier',
+                                                                         'entreprises'=>$entreprises]);
+      }
 
     /**
      * @Route("/formations", name="prostages_formations")

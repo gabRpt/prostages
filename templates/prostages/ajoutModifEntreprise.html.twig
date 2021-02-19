@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block titrePage %}
+  {% if action == 'ajouter' %}
+    Ajout d'une entreprise
+  {% else %}
+    Modification d'une entreprise
+  {% endif %}
+{% endblock %}
+
+{% block nomBtn %}Modifier{% endblock %}
+
+{% block contenuPage %}
+  {{ form_start(formulaireEntreprise) }}
+    {{form_row(formulaireEntreprise.nom, {'attr':{'placeholder':'IUT de Bayonne et du Pays Basque'}})}}
+    <br>
+
+    {{form_label(formulaireEntreprise.activite,'Activité')}}
+    {{form_errors(formulaireEntreprise.activite)}}
+    {{form_widget(formulaireEntreprise.activite, {'attr':{'placeholder':'Enseignement'}})}}
+    <br>
+
+    {{form_row(formulaireEntreprise.adresse, {'attr':{'placeholder':'2 Allée du Parc Montaury, 64600 Anglet'}})}}
+    <br>
+
+    {{form_label(formulaireEntreprise.site,'URL du site de l\'entreprise')}}
+    {{form_errors(formulaireEntreprise.site)}}
+    {{form_widget(formulaireEntreprise.site, {'attr':{'placeholder':'https://www.iutbayonne.univ-pau.fr/'}})}}
+    <br>
+
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+  {{ form_end(formulaireEntreprise) }}
+  <br><hr><br>
+  {% set etatLigne = 0 %}
+  <div class="row">
+  {# On parcours toutes les entreprises que nous avons reçu du contrôleur #}
+  {% for entrepriseCourante in entreprises %}
+      {# Si on a 4 cartes sur la ligne, on saute d'une ligne #}
+      {% if etatLigne >= 4 %}
+        </div> {# On ferme la ligne précedente #}
+        <div class="row mt-4"> {# création d'une nouvelle ligne #}
+          {% set etatLigne = 0 %} {# raz du compteur #}
+      {% endif %}
+
+      {# On créer une carte prenant 3 de place en colonne #}
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{entrepriseCourante.nom}}</h5>
+            <p class="card-text">
+              <ul>
+                <li>Activite : {{entrepriseCourante.activite}}</li>
+                <li>Adresse : {{entrepriseCourante.adresse}}</li>
+                <li>Site : {{entrepriseCourante.site}}</li>
+              </ul>
+            </p>
+            {# On génère un lien vers la liste des stages proposés par l'entreprise courante #}
+            <a href="{{path('prostages_modifEntreprise',{id:entrepriseCourante.id})}}" class="btn btn-primary">Modifier</a>
+          </div>
+        </div>
+      </div>
+
+      {% set etatLigne = etatLigne + 1 %} {# incrémentation du compteur #}
+  {% endfor %}
+  </div>
+{% endblock %}
