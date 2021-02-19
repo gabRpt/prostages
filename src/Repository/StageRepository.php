@@ -46,6 +46,18 @@ class StageRepository extends ServiceEntityRepository
                   ->execute();
     }
 
+    //Retourne tous les stages ainsi que leurs formations et entreprise
+    public function fetchAllStageFormationEntreprise()
+    {
+      return $this->getEntityManager()
+                  ->createQuery(
+                    'SELECT stages,entreprise,formations
+                    FROM App\Entity\Stage stages
+                    JOIN stages.formations formations
+                    JOIN stages.entreprise entreprise')
+                  ->execute();
+    }
+
     // /**
     //  * @return Stage[] Returns an array of Stage objects
     //  */

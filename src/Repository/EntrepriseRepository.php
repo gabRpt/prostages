@@ -19,6 +19,16 @@ class EntrepriseRepository extends ServiceEntityRepository
         parent::__construct($registry, Entreprise::class);
     }
 
+    //Retourne les entreprises qui proposent des stages
+    public function fetchHaveStage()
+    {
+      return $this->createQueryBuilder('entreprise')
+                  ->join('entreprise.stages','stages')
+                  ->where('stages IS NOT NULL')
+                  ->getQuery()
+                  ->getResult();
+    }
+
     // /**
     //  * @return Entreprise[] Returns an array of Entreprise objects
     //  */
