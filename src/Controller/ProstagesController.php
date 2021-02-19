@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Stage;
 use App\Entity\Entreprise;
@@ -11,6 +12,7 @@ use App\Entity\Formation;
 use App\Repository\EntrepriseRepository;
 use App\Repository\StageRepository;
 use App\Repository\FormationRepository;
+use Doctrine\Persistence\ObjectManager;
 
 class ProstagesController extends AbstractController
 {
@@ -42,16 +44,29 @@ class ProstagesController extends AbstractController
     /**
      * @Route("/entreprises/ajouter", name="prostages_ajoutEntreprise")
      */
-     public function ajouterEntreprise()
+     public function ajouterEntreprise(Request $request, ObjectManager $manager)
      {
        $entreprise = new Entreprise();
 
+       //Création du formulaire d'ajout d'une entreprise
        $form = $this->createFormBuilder($entreprise)
                     ->add('nom')
                     ->add('activite')
                     ->add('adresse')
                     ->add('site')
                     ->getForm();
+
+       $form->handleRequest($request);
+
+       if($form->isSubmitted())
+       {
+         //Enregistrement en BD
+         $manager->persist($entreprise);
+         $manager->flush();
+
+         //Retour à la page d'accueil
+         return $this->redirectToRoute('prostages_accueil');
+       }
 
        return $this->render('prostages/ajoutEntreprise.html.twig',['formulaireEntreprise'=>$form->createView()]);
      }
