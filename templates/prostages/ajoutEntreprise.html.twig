@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block titrePage %}Ajout d'une entreprise{% endblock %}
 {% block contenuPage %}
-{{ form(formulaireEntreprise) }}
+  {{ form_start(formulaireEntreprise) }}
+    {{form_row(formulaireEntreprise.activite)}}
+  {{ form_end(formulaireEntreprise) }}
 {% endblock %}
