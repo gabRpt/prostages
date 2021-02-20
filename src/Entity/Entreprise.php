@@ -6,6 +6,7 @@ use App\Repository\EntrepriseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EntrepriseRepository::class)
@@ -21,21 +22,39 @@ class Entreprise
 
     /**
      * @ORM\Column(type="string", length=150)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 150,
+     *      minMessage = "Le nom doit faire au minimum {{ limit }} caractères",
+     *      maxMessage = "Le nom doit faire au maximum {{ limit }} caractères"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
+     * @Assert\NotBlank
      */
     private $activite;
 
     /**
      * @ORM\Column(type="string", length=500, nullable=true)
+     * @Assert\Regex(
+     *     pattern="# [0-9]{5} #",
+     *     message="Le code postal n'est pas valide")
+     * @Assert\Regex(
+     *     pattern="# (avenue|all[eé]e|rue|place|boulevard|impasse|route) #i",
+     *     message="Le type de route/voie n'est pas valide")
+     * @Assert\Regex(
+     *     pattern="#^[0-9]{1,4} ?(bis|ter|quater)? #i",
+     *     message="Le numéro de rue n'est pas valide")
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Url
      */
     private $site;
 
