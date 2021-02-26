@@ -113,8 +113,9 @@ class ProstagesController extends AbstractController
     /**
      * @Route("/stages/{id}", name="prostages_stage")
      */
-    public function afficherStage(Stage $stage): Response
+    public function afficherStage($id, StageRepository $repoStage): Response
     {
+        $stage = $repoStage->fetchStageWithFormationEntreprise($id)[0];
         return $this->render('prostages/affichageStage.html.twig',['stage' => $stage]);
     }
 
