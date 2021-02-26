@@ -11,21 +11,19 @@
 {% block nomBtn %}Modifier{% endblock %}
 
 {% block contenuPage %}
-  {{ form_start(formulaireEntreprise) }}
+  {{ form_start(formulaireEntreprise,{'attr':{'novalidate':'novalidate'}}) }}
     {{form_row(formulaireEntreprise.nom, {'attr':{'placeholder':'IUT de Bayonne et du Pays Basque'}})}}
     <br>
 
-    {{form_label(formulaireEntreprise.activite,'Activité')}}
-    {{form_errors(formulaireEntreprise.activite)}}
-    {{form_widget(formulaireEntreprise.activite, {'attr':{'placeholder':'Enseignement'}})}}
+    {{form_row(formulaireEntreprise.activite, {'label':'Activité',
+                                               'attr':{'placeholder':'Enseignement'}})}}
     <br>
 
     {{form_row(formulaireEntreprise.adresse, {'attr':{'placeholder':'2 Allée du Parc Montaury, 64600 Anglet'}})}}
     <br>
 
-    {{form_label(formulaireEntreprise.site,'URL du site de l\'entreprise')}}
-    {{form_errors(formulaireEntreprise.site)}}
-    {{form_widget(formulaireEntreprise.site, {'attr':{'placeholder':'https://www.iutbayonne.univ-pau.fr/'}})}}
+    {{form_row(formulaireEntreprise.site, {'label':'URL du site de l\'entreprise',
+                                           'attr':{'placeholder':'https://www.iutbayonne.univ-pau.fr/'}})}}
     <br>
 
     <button type="submit" class="btn btn-primary">Enregistrer</button>

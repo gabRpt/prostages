@@ -54,7 +54,7 @@ class ProstagesController extends AbstractController
 
        $form->handleRequest($request);
 
-       if($form->isSubmitted())
+       if($form->isSubmitted() && $form->isValid())
        {
          //Enregistrement en BD
          $manager->persist($entreprise);
@@ -81,7 +81,7 @@ class ProstagesController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted())
+        if($form->isSubmitted() && $form->isValid())
         {
           //Enregistrement en BD
           $manager->persist($entreprise);
