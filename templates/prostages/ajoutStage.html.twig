@@ -18,9 +18,25 @@
 
           {{form_row(formulaireStage.mail,{'attr':{'placeholder':'reponsableStage@mail.com'}})}}
           <br>
+          {{form_row(formulaireStage.formations,{'label':'Sélectionez une ou plusieurs formations concernées'})}}
+          <br>
 
+          {{form_row(formulaireStage.entreprise.nom, {'attr':{'placeholder':'IUT de Bayonne et du Pays Basque'}})}}
+          <br>
+
+          {{form_row(formulaireStage.entreprise.activite, {'label':'Activité',
+                                                     'attr':{'placeholder':'Enseignement'}})}}
+          <br>
+
+          {{form_row(formulaireStage.entreprise.adresse, {'attr':{'placeholder':'2 Allée du Parc Montaury, 64600 Anglet'}})}}
+          <br>
+
+          {{form_row(formulaireStage.entreprise.site, {'label':'URL du site de l\'entreprise',
+                                                 'attr':{'placeholder':'https://www.iutbayonne.univ-pau.fr/'}})}}
+          <br>
           <button type="submit" class="btn btn-primary">Enregistrer</button>
         {{form_end(formulaireStage)}}
+        <br>
       </p>
     </div>
   </div>

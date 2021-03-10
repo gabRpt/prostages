@@ -25,10 +25,11 @@
     {{form_row(formulaireEntreprise.site, {'label':'URL du site de l\'entreprise',
                                            'attr':{'placeholder':'https://www.iutbayonne.univ-pau.fr/'}})}}
     <br>
-
     <button type="submit" class="btn btn-primary">Enregistrer</button>
   {{ form_end(formulaireEntreprise) }}
+
   <br><hr><br>
+
   {% set etatLigne = 0 %}
   <div class="row">
   {# On parcours toutes les entreprises que nous avons reçu du contrôleur #}
