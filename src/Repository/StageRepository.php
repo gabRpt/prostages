@@ -19,6 +19,20 @@ class StageRepository extends ServiceEntityRepository
         parent::__construct($registry, Stage::class);
     }
 
+    //Retourne un stage dont l'id est entré en paramètre, avec ses formations et son entreprise
+    public function fetchStageWithFormationEntreprise($id)
+    {
+      return $this->getEntityManager()
+                  ->createQuery(
+                    'SELECT stage,entreprise,formations
+                    FROM App\Entity\Stage stage
+                    JOIN stage.formations formations
+                    JOIN stage.entreprise entreprise
+                    WHERE stage.id = :id')
+                  ->setParameter('id',$id)
+                  ->execute();
+    }
+
     //Retourne les stages proposés par l'entreprise dont le nom est fournis en paramètre
     public function fetchByEntreprise($nomEntreprise)
     {

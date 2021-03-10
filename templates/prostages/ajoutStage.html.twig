@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block titrePage %}Ajout d'un stage{% endblock %}
+
+{% block nomBtn %}Ajouter{% endblock %}
+
+{% block contenuPage %}
+<div class="col-sm-6">
+  <div class="card">
+    <div class="card-body">
+      <p class="card-text">
+        {{form_start(formulaireStage)}}
+          {{form_row(formulaireStage.intitule,{'attr':{'placeholder':'Développeur web'}})}}
+          <br>
+
+          {{form_row(formulaireStage.mission,{'attr':{'placeholder':'Développer un site web avec le framework Symfony'}})}}
+          <br>
+
+          {{form_row(formulaireStage.mail,{'attr':{'placeholder':'reponsableStage@mail.com'}})}}
+          <br>
+
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
+        {{form_end(formulaireStage)}}
+      </p>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

@@ -14,6 +14,7 @@ use App\Repository\StageRepository;
 use App\Repository\FormationRepository;
 use Doctrine\Persistence\ObjectManager;
 use App\Form\EntrepriseType;
+use App\Form\StageType;
 
 class ProstagesController extends AbstractController
 {
@@ -98,6 +99,21 @@ class ProstagesController extends AbstractController
                                                                          'entreprises'=>$entreprises]);
       }
 
+      /**
+        *@Route("/entreprises/{nomEntreprise}",name="prostages_stagesEntreprise")
+        */
+      public function afficherStagesEntreprise($nomEntreprise, StageRepository $repoStage): Response
+      {
+        //Récupération des stages, $repoStage est directement récupéré
+        //Grâce à l'injection de dépendances, ainsi que l'entreprise dont
+        //l'id est fourni en paramètre de lien
+        //$stages = $repoStage->findBy(['entreprise'=>$entreprise]);
+        $stages = $repoStage->fetchByEntreprise($nomEntreprise);
+
+        return $this->render('prostages/affichageStagesEntreprise.html.twig',['stages'=>$stages,
+                                                                              'nomEntreprise'=>$nomEntreprise]);
+      }
+
     /**
      * @Route("/formations", name="prostages_formations")
      */
@@ -111,26 +127,37 @@ class ProstagesController extends AbstractController
     }
 
     /**
-     * @Route("/stages/{id}", name="prostages_stage")
+     * @Route("/stages/ajouter", name="prostages_ajoutStage")
      */
-    public function afficherStage(Stage $stage): Response
+    public function ajouterStage(Request $request, ObjectManager $manager): Response
     {
-        return $this->render('prostages/affichageStage.html.twig',['stage' => $stage]);
+      $stage = new Stage();
+
+      //Création du formulaire d'ajout d'une entreprise
+      $form = $this->createForm(StageType::class, $stage);
+
+      $form->handleRequest($request);
+
+      if($form->isSubmitted() && $form->isValid())
+      {
+        //Enregistrement en BD
+        $manager->persist($stage);
+        $manager->flush();
+
+        //Réinitialisation du formulaire en redigireant sur la même page
+        return $this->redirectToRoute('prostages_ajoutStage');
+      }
+
+      return $this->render('prostages/ajoutStage.html.twig',['formulaireStage'=>$form->createView()]);
     }
 
     /**
-      *@Route("/entreprises/{nomEntreprise}",name="prostages_stagesEntreprise")
-      */
-    public function afficherStagesEntreprise($nomEntreprise, StageRepository $repoStage): Response
+     * @Route("/stages/{id}", name="prostages_stage")
+     */
+    public function afficherStage($id, StageRepository $repoStage): Response
     {
-      //Récupération des stages, $repoStage est directement récupéré
-      //Grâce à l'injection de dépendances, ainsi que l'entreprise dont
-      //l'id est fourni en paramètre de lien
-      //$stages = $repoStage->findBy(['entreprise'=>$entreprise]);
-      $stages = $repoStage->fetchByEntreprise($nomEntreprise);
-
-      return $this->render('prostages/affichageStagesEntreprise.html.twig',['stages'=>$stages,
-                                                                            'nomEntreprise'=>$nomEntreprise]);
+        $stage = $repoStage->fetchStageWithFormationEntreprise($id)[0];
+        return $this->render('prostages/affichageStage.html.twig',['stage' => $stage]);
     }
 
     /**
@@ -141,8 +168,6 @@ class ProstagesController extends AbstractController
       //Grâce à l'injection de dépendances, nous avons récupéré la formation dont
       //l'id est fourni en paramètre de lien
       $stages = $repoStage->fetchByFormation($nomFormation);
-
-
       return $this->render('prostages/affichageStagesFormation.html.twig',['stages'=>$stages,
                                                                            'nomFormation'=>$nomFormation]);
     }
