@@ -73,7 +73,7 @@ class ProstagesController extends AbstractController
      }
 
      /**
-      * @Route("/entreprises/modifier/{id}", name="prostages_modifEntreprise")
+      * @Route("/admin/entreprises/modifier/{id}", name="prostages_modifEntreprise")
       */
       public function modifierEntreprise(Entreprise $entreprise, Request $request, ObjectManager $manager, EntrepriseRepository $repoEntreprises)
       {
@@ -127,7 +127,7 @@ class ProstagesController extends AbstractController
     }
 
     /**
-     * @Route("/stages/ajouter", name="prostages_ajoutStage")
+     * @Route("/profile/stages/ajouter", name="prostages_ajoutStage")
      */
     public function ajouterStage(Request $request, ObjectManager $manager): Response
     {
