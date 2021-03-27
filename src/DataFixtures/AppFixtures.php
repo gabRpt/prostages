@@ -7,11 +7,29 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Formation;
 use App\Entity\Entreprise;
 use App\Entity\Stage;
+use App\Entity\User;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        //Création des utilisateurs de test
+        $gabin = new User();
+        $gabin->setPrenom("Gabin");
+        $gabin->setNom("Raapoto");
+        $gabin->setEmail("gabin@gmail.com");
+        $gabin->setRoles(["ROLE_USER","ROLE_ADMIN"]);
+        $gabin->setPassword('$2y$10$Uvhkg6KD3l6QkXDPRSnnWODjvOmL0PZycm.YkyLQDmceplOm6p3GO');
+        $manager->persist($gabin);
+
+        $gabdeux = new User();
+        $gabdeux->setPrenom("GabDeux");
+        $gabdeux->setNom("Otopaar");
+        $gabdeux->setEmail("gabdeux@gmail.com");
+        $gabdeux->setRoles(["ROLE_USER"]);
+        $gabdeux->setPassword('$2y$10$wztHAUeD9pvBDEzOxQKTeuRWpQ7IcmmKdJZ5YmkCfM1jyiyOEy3n6');
+        $manager->persist($gabdeux);
+
         //---Création des formations---
         $dutInfo = new Formation();
         $dutInfo->setNom("DUT Informatique");
