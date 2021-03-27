@@ -44,7 +44,7 @@ class ProstagesController extends AbstractController
     }
 
     /**
-     * @Route("/entreprises/ajouter", name="prostages_ajoutEntreprise")
+     * @Route("/admin/entreprises/ajouter", name="prostages_ajoutEntreprise")
      */
      public function ajouterEntreprise(Request $request, ObjectManager $manager, EntrepriseRepository $repoEntreprises)
      {
