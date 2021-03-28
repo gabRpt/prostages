@@ -11,6 +11,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Repository\UserRepository;
 use App\Form\UserType;
 use App\Entity\User;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 class SecurityController extends AbstractController
 {
@@ -42,7 +44,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/inscription", name="app_inscription")
      */
-     public function ajouterEntreprise(Request $request, ObjectManager $manager)
+     public function inscription(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
      {
        $user = new User();
 
@@ -53,12 +55,19 @@ class SecurityController extends AbstractController
 
        if($form->isSubmitted() && $form->isValid())
        {
+         //role user
+         $user->setRoles(['ROLE_USER']);
+
+         //encodage mdp
+         $encoded = $encoder->encodePassword($user, $user->getPassword());
+         $user->setPassword($encoded);
+
          //Enregistrement en BD
-         /*$manager->persist($user);
-         $manager->flush();*/
+         $manager->persist($user);
+         $manager->flush();
 
          //Réinitialisation du formulaire en redigireant sur la même page
-         return $this->redirectToRoute('prostages_accueil');
+         return $this->redirectToRoute('app_login');
        }
 
        return $this->render('security/inscription.html.twig',['formulaireUser'=>$form->createView()]);
