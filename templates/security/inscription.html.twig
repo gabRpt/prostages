@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block titrePage %}Inscription{% endblock %}
+
+{% block contenuPage %}
+<div class="col-sm-6">
+  <div class="card">
+    <div class="card-body">
+      <p class="card-text">
+        {{form_start(formulaireUser)}}
+          {{form_row(formulaireUser.prenom,{'attr':{'placeholder':'Jean'}})}}
+          <br>
+
+          {{form_row(formulaireUser.nom,{'attr':{'placeholder':'Dupont'}})}}
+          <br>
+
+          {{form_row(formulaireUser.email,{'attr':{'placeholder':'jean.dupont@mail.com'}})}}
+          <br>
+
+          {{form_row(formulaireUser.password,{'attr':{'placeholder':'Mot de passe'}})}}
+          <br>
+
+          <button type="submit" class="btn btn-primary">S'inscrire</button>
+        {{form_end(formulaireUser)}}
+        <br>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

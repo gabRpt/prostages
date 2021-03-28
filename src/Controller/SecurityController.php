@@ -4,8 +4,13 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use App\Repository\UserRepository;
+use App\Form\UserType;
+use App\Entity\User;
 
 class SecurityController extends AbstractController
 {
@@ -31,6 +36,31 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-      
+
     }
+
+    /**
+     * @Route("/inscription", name="app_inscription")
+     */
+     public function ajouterEntreprise(Request $request, ObjectManager $manager)
+     {
+       $user = new User();
+
+       //Création du formulaire d'ajout d'une entreprise
+       $form = $this->createForm(UserType::class, $user);
+
+       $form->handleRequest($request);
+
+       if($form->isSubmitted() && $form->isValid())
+       {
+         //Enregistrement en BD
+         /*$manager->persist($user);
+         $manager->flush();*/
+
+         //Réinitialisation du formulaire en redigireant sur la même page
+         return $this->redirectToRoute('prostages_accueil');
+       }
+
+       return $this->render('security/inscription.html.twig',['formulaireUser'=>$form->createView()]);
+     }
 }
