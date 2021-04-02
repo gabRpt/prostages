@@ -1,7 +1,39 @@
 easy_admin:
     entities:
         # change the following to the namespaces of your own entities
-        - App\Entity\Stage
-        - App\Entity\Formation
-        - App\Entity\Entreprise
-        - App\Entity\User
+        Stage:
+            class: App\Entity\Stage
+            label: 'Stages'
+            list:
+                title: "Stages"
+
+        Formation:
+            class: App\Entity\Formation
+            label: 'Formations'
+            list:
+                title: "Formations"
+
+        Entreprise:
+            class: App\Entity\Entreprise
+            label: 'Entreprises'
+            list:
+                title: "Entreprises"
+
+        User:
+            class: App\Entity\User
+            label: 'Utilisateurs'
+            help: "L'ajout d'un nouvel utilisateur lui donnera le rôle de USER"
+            list:
+                title: "Utilisateurs"
+    design:
+        brand_color: '#2b2e4a'
+        menu:
+            - label: 'Accueil'
+              icon: 'reply'
+              children:
+                  - { label: 'Accueil', route: 'prostages_accueil', icon: 'home' }
+                  - { label: 'GitHub', url: 'https://github.com/gabRpt/prostages', icon: 'tags' }
+            - { entity: 'Stage', icon: 'briefcase' }
+            - { entity: 'Formation', icon: 'graduation-cap' }
+            - { entity: 'Entreprise', icon: 'address-book' }
+            - { entity: 'User', icon: 'users' }
